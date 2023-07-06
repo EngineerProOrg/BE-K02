@@ -1,0 +1,29 @@
+1,
+
+select concat_ws(' ', p.prof_f_name, p.prof_l_name) as professor,
+		concat_ws(' ', s.stud_f_name, s.stud_l_name) as student,
+        count(p.prof_id) as mutual_classes
+from professors p 
+	join classes c on p.prof_id = c.prof_id
+    join enroll e on c.class_id = e.class_class_id
+    join students s on e.student_stu_id = s.stu_id
+group by p.prof_id, s.stu_id
+
+2,
+
+select concat_ws(' ', prof_f_name, prof_l_name) as professor,
+		count(distinct(co.course_id)) as total_courses
+from professors p 
+	join classes c on p.prof_id = c.prof_id
+    join courses co on c.course_id = co.course_id
+where p.prof_id = 1
+
+3, 
+
+select concat_ws(' ', stud_f_name, stud_l_name) as student,
+		count(distinct(co.course_id)) as total_courses
+from students s
+	join enroll e on s.stu_id = e.student_stu_id
+    join classes c on e.class_class_id = c.class_id
+    join courses co on c.course_id = co.course_id
+where s.stu_id = 1
